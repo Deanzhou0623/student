@@ -5,6 +5,7 @@ package com.example.springboot.service;/*
  *@Date:2023-12-21 00:12
  */
 
+import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Admin;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.AdminMapper;
@@ -23,16 +24,16 @@ public class AdminService {
     /*
     * 登入功能
     * */
-    public Admin login(Admin admin){
+    public Account login(Account account){
         //1. 从数据库得到dbAdmin对象
-        Admin dbAdmin = adminMapper.selectByUsername(admin.getUsername());
+        Account dbAdmin = adminMapper.selectByUsername(account.getUsername());
         //2.1 dbAdmin 为空 ，则不存在用户
         if (dbAdmin==null){
             //返回错误信息
             throw new CustomException("账号或密码错误");
         }
         //2. 有用户，密码不正确
-        if (!dbAdmin.getPassword().equals(admin.getPassword())){
+        if (!dbAdmin.getPassword().equals(account.getPassword())){
             throw new CustomException("账号或密码错误");
         }
         return dbAdmin;
