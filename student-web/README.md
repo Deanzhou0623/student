@@ -16,3 +16,16 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+
+
+
+
+# 项目初始化
+1、npm init vite@latest
+2、进入工程 然后初始化项目
+   npm install
+3、 启动测试
+   npm run dev
+4、安装Element-UI (这个可以良好的兼容npm版本过高问题)
+npm install element-plus
