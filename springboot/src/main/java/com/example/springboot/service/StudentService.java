@@ -11,12 +11,15 @@ import com.example.springboot.entity.Account;
 import com.example.springboot.entity.Student;
 import com.example.springboot.exception.CustomException;
 import com.example.springboot.mapper.StudentMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -57,7 +60,7 @@ public class StudentService {
     /*
     * 添加
     * */
-    private void add(Student student) {
+    public void add(Student student) {
         //1. 查询学生账号是否重复
         Student dbStudent= studentMapper.selectByUsername(student.getUsername());
         //2. 未查询到学生对象则添加
@@ -76,4 +79,26 @@ public class StudentService {
     }
 
 
+    /*
+    * 删除学生信息
+    * */
+    public void deleteById(Integer id) {
+        studentMapper.deleteById(id);
+    }
+
+    /*
+    * 更新学生信息
+    * */
+    public void updateById(Student student) {
+        studentMapper.updateById(student);
+    }
+
+    /*
+    * 分页查询学生信息
+    * */
+    public PageInfo<Student> selectById(Integer pageNum,Integer pageSize,Student student) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Student> studentList=studentMapper.selectAll(student);
+        return PageInfo.of(studentList);
+    }
 }

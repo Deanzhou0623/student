@@ -67,8 +67,4 @@ public class WebController {
         studentService.signUp(account);
         return Result.success();
     }
-    /*
-    * 添加注册信息到数据库
-    * */
-
 }
