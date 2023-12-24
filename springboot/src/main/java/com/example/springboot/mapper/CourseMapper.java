@@ -18,8 +18,21 @@ public interface CourseMapper {
     /*
     * 查询所有数据
     * */
-    @Select("select * from course where name like concat('%',#{name},'%') " +
-            "and no like concat('%',#{no},'%') and teacher like  concat('%',#{teacher},'%') order by id DESC ")
+    @Select("<script>" +
+            "SELECT * FROM course " +
+            "<where> " +
+            "   <if test='name != null and name != \"\"'> " +
+            "       AND name LIKE CONCAT('%', #{name}, '%') " +
+            "   </if> " +
+            "   <if test='no != null and no != \"\"'> " +
+            "       AND no LIKE CONCAT('%', #{no}, '%') " +
+            "   </if> " +
+            "   <if test='teacher != null and teacher != \"\"'> " +
+            "       AND teacher LIKE CONCAT('%', #{teacher}, '%') " +
+            "   </if> " +
+            "</where> " +
+            "ORDER BY id DESC " +
+            "</script>")
     List<Course> selectAll(Course course);
 
     /*

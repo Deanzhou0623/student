@@ -54,6 +54,6 @@ public class StudentController {
                              @RequestParam(defaultValue = "10") Integer pageSize,
                              Student student){
          PageInfo<Student> pageInfo = studentService.selectById(pageNum,pageSize,student);
-        return Result.success();
+        return Result.success(pageInfo);
     }
 }

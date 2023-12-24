@@ -44,7 +44,16 @@ public interface StudentMapper {
     * 查询学生信息
     * */
 
-    @Select("select * from student where username like concat('%',#{username},'%')" +
-            "and name like concat('%',#{name},'%')")
+    @Select("<script>" +
+            "SELECT * FROM student" +
+            "<where> " +
+            "   <if test='username != null and username != \"\"'> " +
+            "       AND username LIKE CONCAT('%', #{username}, '%') " +
+            "   </if> " +
+            "   <if test='name != null and name != \"\"'> " +
+            "       AND name LIKE CONCAT('%', #{name}, '%') " +
+            "   </if> " +
+            "</where> " +
+            "</script>")
     List<Student> selectAll(Student student);
 }
