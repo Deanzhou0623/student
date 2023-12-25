@@ -96,7 +96,7 @@ public class StudentService {
     /*
     * 分页查询学生信息
     * */
-    public PageInfo<Student> selectById(Integer pageNum,Integer pageSize,Student student) {
+    public PageInfo<Student> selectPage(Integer pageNum,Integer pageSize,Student student) {
         PageHelper.startPage(pageNum,pageSize);
         List<Student> studentList=studentMapper.selectAll(student);
         return PageInfo.of(studentList);
