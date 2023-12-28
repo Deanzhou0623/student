@@ -1,2 +1,2 @@
 # student
-student grade project
+student grade project(mybatis-plus)
