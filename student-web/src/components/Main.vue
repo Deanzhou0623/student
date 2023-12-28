@@ -2,18 +2,31 @@
 // import axios from "axios"
 import axios from "../api/request"
 import {ref,onMounted} from "vue";
-import {Course, MaybatisPage} from "../model/Mode9090.ts";
+import {Course, MaybatisPage, SpringList} from "../model/Mode9090.ts";
 
 let course = ref<Course[]>([])
 
 // const count = ref(0);
-async function getAllStudent(){
-  const resp = await axios.get<MaybatisPage<Course>>("/course/selectPage?pageNum=1&pageSize=10")
-  course = resp.data.data
+async function getAllCourse(){
+  const resp = await axios.get<MaybatisPage<Course>>("http://localhost:9090/api/course/selectPage?pageNum=1&pageSize=10")
+  console.log(resp)
+  course = resp.data.data.list
+  console.log(course)
+
 }
+const deleteCourse = async id => {
+  const resp = await axios.get<SpringList<Object>>("api/course/delete/"+id)
+  course = resp.data.data
+  console.log(course)
+};
+const updateCourse = async id => {
+  const resp = await axios.get<SpringList<Object>>("api/course/delete/"+id)
+  course = resp.data.data
+  console.log(course)
+};
 
 // 页面加载完之后才开始调用
-onMounted(()=> getAllStudent())
+onMounted(()=> getAllCourse())
 // getAllStudent()
 
 const item = {
@@ -42,6 +55,10 @@ const tableData = ref(Array.from({ length: 10 }).fill(item))
         <el-table-column prop="teacher" label="Teacher" width="120" />
         <el-table-column prop="description" label="Description" width="120" />
         <el-table-column prop="times" label="Times" width="120" />
+        <el-table-column label="操作">
+          <el-button type="success" @click="updateCourse()">编辑</el-button>
+          <el-button type="danger" @click="deleteCourse()">删除</el-button>
+        </el-table-column>>
       </el-table>
     </el-scrollbar>
     <el-pagination background layout="prev, pager, next" :total="1000" />

@@ -29,3 +29,8 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    npm run dev
 4、安装Element-UI (这个可以良好的兼容npm版本过高问题)
 npm install element-plus
+
+
+# 遇到的问题
+1、axios跨域问题
+2、获取数据展示不出来问题
