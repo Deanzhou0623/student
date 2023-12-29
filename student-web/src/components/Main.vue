@@ -1,18 +1,20 @@
 <script setup lang="ts">
-// import axios from "axios"
-import axios from "../api/request"
+import axios from "../api/request.ts"
 import {ref,onMounted} from "vue";
 import {Course, MaybatisPage, SpringList} from "../model/Mode9090.ts";
 
 let course = ref<Course[]>([])
 
 // const count = ref(0);
-async function getAllCourse(){
-  const resp = await axios.get<MaybatisPage<Course>>("http://localhost:9090/api/course/selectPage?pageNum=1&pageSize=10")
+async function getAllCourse(currentPage: number, pageSize: number){
+  const resp = await axios.get<MaybatisPage<Course>>(`/course/selectPage?pageNum=${currentPage}&pageSize=${pageSize}`)
   console.log(resp)
   course = resp.data.data.list
   console.log(course)
-
+}
+async function clickPageNum(currentPage: number, pageSize: number){
+  console.log("触发clickPageNum")
+  getAllCourse(currentPage,pageSize)
 }
 const deleteCourse = async id => {
   const resp = await axios.get<SpringList<Object>>("api/course/delete/"+id)
@@ -38,7 +40,6 @@ const item = {
   description: '人工智能',
   times: '2023-12-23 10:00:00',
   teacher: 'Mr.Xiao'
-
 }
 // TODO:记得回复成
 const tableData = ref(Array.from({ length: 10 }).fill(item))
@@ -48,7 +49,7 @@ const tableData = ref(Array.from({ length: 10 }).fill(item))
 <template>
   <div>
     <el-scrollbar>
-      <el-table :data="tableData">
+      <el-table :data="course">
         <el-table-column prop="id" label="Id" width="140" />
         <el-table-column prop="no" label="No" width="140" />
         <el-table-column prop="name" label="Name" width="120" />
@@ -61,7 +62,6 @@ const tableData = ref(Array.from({ length: 10 }).fill(item))
         </el-table-column>>
       </el-table>
     </el-scrollbar>
-    <el-pagination background layout="prev, pager, next" :total="1000" />
+    <el-pagination background @change="clickPageNum" layout="prev, pager, next" :total="1000" />
   </div>
-
 </template>
