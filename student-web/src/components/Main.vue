@@ -9,7 +9,7 @@ let course = ref<Course[]>([])
 async function getAllCourse(currentPage: number, pageSize: number){
   const resp = await axios.get<MaybatisPage<Course>>(`/course/selectPage?pageNum=${currentPage}&pageSize=${pageSize}`)
   console.log(resp)
-  course = resp.data.data.list
+  course.value = resp.data.data.list
   console.log(course)
 }
 async function clickPageNum(currentPage: number, pageSize: number){
@@ -28,7 +28,7 @@ const updateCourse = async id => {
 };
 
 // 页面加载完之后才开始调用
-onMounted(()=> getAllCourse())
+onMounted(()=> getAllCourse(1,20))
 // getAllStudent()
 
 const item = {
