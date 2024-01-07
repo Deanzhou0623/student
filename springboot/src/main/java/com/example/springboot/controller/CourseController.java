@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 public class CourseController {
 
     @Resource
@@ -23,10 +23,10 @@ public class CourseController {
     /*
     * 分页条件查询
     * */
-    @GetMapping("/selectPage")
+    @PostMapping("/selectPage")
     public Result selectPage(@RequestParam(defaultValue = "1") Integer pageNum,
                              @RequestParam(defaultValue = "5")  Integer pageSize,
-                             Course course){
+                             @RequestBody Course course){
         //返回课程和总数
         PageInfo<Course> coursePageInfo = courseService.selectPage(pageNum, pageSize,course);
         return Result.success(coursePageInfo);
