@@ -6,12 +6,12 @@ export interface Student {
 }
 
 export interface Course {
-    id: number,
-    name: String,
-    no: String,
-    description: String,
-    times: String,
-    teacher: String
+    id?: number,
+    name?: Object,
+    no?: String,
+    description?: String,
+    times?: String,
+    teacher?: String
 }
 
 export interface SpringList<T> {
@@ -27,7 +27,7 @@ export interface SpringPage<T> {
 }
 
 export interface MaybatisPage<T> {
-    data: { list: T[], size: number },
+    data: { list: T[], total: number },
     message?: String,
     code: number
 }
